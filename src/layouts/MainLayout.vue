@@ -11,45 +11,26 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
       </q-toolbar>
-      <div class="q-px-lg q-pt-xl q-mb-mb">
-         <div class="text-3">Todo</div>
-        <div class="text-subtitl">{{todaysDate}}</div>
-      </div>
-
     </q-header>
 
           <q-drawer
-        v-model="leftDrawerOpen"
-        show-if-above
-        :width="200"
-        :breakpoint="400"
-      >
-        <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
-          <q-list padding>
-            <q-item clickable v-ripple>
-              <q-item-section avatar>
-                <q-icon name="list" />
-              </q-item-section>
-
-              <q-item-section>
-                To do
-              </q-item-section>
-            </q-item>
-
-          
-          </q-list>
-        </q-scroll-area>
-
-        <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
-          <div class="absolute-bottom bg-transparent">
-            <q-avatar size="56px" class="q-mb-sm">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-            </q-avatar>
-            <div class="text-weight-bold">Lucas Uchôa</div>
-            <div>@lucasuchoa</div>
-          </div>
-        </q-img>
-      </q-drawer>
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      content-class="bg-grey-2"
+    >
+      <q-list>
+        <q-item-label header>Uchôa APP</q-item-label>
+        <q-item clickable tag="a" target="_blank" rel="noopener" href="#">
+          <q-item-section avatar>
+            <q-icon name="school" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Áreas</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
     <q-page-container>
       <keep-alive>
       <router-view />
@@ -68,12 +49,6 @@ export default {
   data () {
     return {
       leftDrawerOpen: false,
-    }
-  },
-  computed: {
-    todaysDate() {
-      let timeStamp = Date.now()
-      return date.formatDate(timeStamp, 'YYYY-MM-DDTHH:mm:ss.SSSZ')
     }
   }
 }
