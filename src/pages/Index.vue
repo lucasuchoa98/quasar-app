@@ -1,20 +1,57 @@
 <template>
-  <q-page class="block">
-      <q-list v-for="(form,index) in livros" v-bind:key="index" bordered separator v-show="true"  style="margin: 0px 16px">
+  <q-page>
+    <div class="q-gutter-md" style="max-width: 300px">
+      <q-list v-for="(pessoa,index) in pessoas" v-bind:key="index" bordered separator v-show="true"  style="margin: 0px 16px">
         <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
           <q-item clickable>
-            <q-item-section>{{index}}</q-item-section>
-            <q-item-section>{{livros[index]}}</q-item-section>
-            <q-item-section><q-btn push color="primary" label="Push" /></q-item-section>
+            <q-item-section> Nome: {{ pessoa.name }} </q-item-section>
+            <q-item-section> Idade: {{ pessoa.age }} </q-item-section>
           </q-item>
         </transition>
       </q-list>
-    {{data}}
+      
+      <q-form
+        @submit="addPessoa"
+        @reset="onReset"
+        class="q-gutter-md"
+      >
+      <q-input
+        filled
+        v-model="nome"
+        label="Your name *"
+        hint="Name and surname"
+        lazy-rules
+        :rules="[ val => val && val.length > 0 || 'Please type something']"
+      />
+
+      <q-input
+        filled
+        type="number"
+        v-model="idade"
+        label="Your age *"
+        lazy-rules
+        :rules="[
+          val => val !== null && val !== '' || 'Please type your age',
+          val => val > 0 && val < 100 || 'Please type a real age'
+        ]"
+      />
+
+      <q-toggle v-model="accept" label="I accept the license and terms" />
+
+      <div>
+        <q-btn label="Submit" type="submit" color="primary"/>
+        <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+      </div>
+    </q-form>
+
+  
+
+    </div>
   </q-page>
 </template>
 
 <script>
-import { openURL } from 'quasar';
+import { openURL, Quasar, QSelect } from 'quasar';
 import Vue from 'vue';
 import axios from 'axios';
 
@@ -47,12 +84,25 @@ const listClient = ({ commit }) => {
     
 }
 
+const livro_list = ['Livro1', 'Livro2']
+
+
 export default {
   data () {
     return {
-      livros: data,
-      alert: false,
-      apiData: {}
+      pessoas: [
+        {
+          name: 'Lucas',
+          age: 21,
+        },{
+          name:'Robertinho',
+          age: 22
+        }
+      ],
+      name: null,
+      age: null,
+
+      accept: false
     }
   },
   methods: {
@@ -69,8 +119,40 @@ export default {
           icon: 'report_problem'
       })
     })
-    }
-  },
+    },
+    onSubmit () {
+      if (this.accept !== true) {
+        this.$q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'warning',
+          message: 'You need to accept the license and terms first'
+        })
+
+
+      }
+      else {
+        this.$q.notify({
+          color: 'green-4',
+          textColor: 'white',
+          icon: 'cloud_done',
+          message: 'Submitted'
+        })
+      }
+
+    },
+    onReset () {
+      this.name = null
+      this.age = null
+      this.accept = false
+    },
+    addPessoa () {
+          this.pessoas.push({
+          name: this.nome,
+          age: this.idade
+        })
+      }
+  }
 }
 
 </script>
