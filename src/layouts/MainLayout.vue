@@ -21,12 +21,61 @@
     >
       <q-list>
         <q-item-label header>Uchôa APP</q-item-label>
-        <q-item clickable tag="a" target="_blank" rel="noopener" href="#">
+
+        <q-expansion-item 
+          expand-separator 
+          icon="list"
+          label="Áreas"
+          caption="3 áreas existentes"
+          default-opened
+          >
+          <q-item
+          clickable tag="a" 
+          href="#" 
+          :header-inset-level="1">
           <q-item-section avatar>
-            <q-icon name="school" />
+          </q-item-section >
+            <q-item-section>
+            <q-item-label>Área 1</q-item-label>
           </q-item-section>
-          <q-item-section>
-            <q-item-label>Áreas</q-item-label>
+          </q-item> <q-item
+          clickable tag="a" 
+          href="#" 
+          :header-inset-level="1">
+          <q-item-section avatar>
+          </q-item-section >
+            <q-item-section>
+            <q-item-label>Área 2</q-item-label>
+          </q-item-section>
+          </q-item> <q-item
+          clickable tag="a" 
+          href="#" 
+          :header-inset-level="1">
+          <q-item-section avatar>
+          </q-item-section >
+            <q-item-section>
+            <q-item-label>Área 3</q-item-label>
+          </q-item-section>
+          </q-item> 
+
+
+        </q-expansion-item>
+
+
+        <q-item clickable tag="a" href="#" >
+          <q-item-section avatar>
+            <q-icon name="person" />
+          </q-item-section >
+            <q-item-section>
+            <q-item-label>Clientes</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" href="#" >
+          <q-item-section avatar>
+            <q-icon name="logout" />
+          </q-item-section >
+            <q-item-section>
+            <q-item-label>Sair</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -49,6 +98,12 @@ export default {
   data () {
     return {
       leftDrawerOpen: false,
+      loged: false,
+    }
+  },
+  methods: {
+    loginOrLogout () {
+      return loged
     }
   }
 }

@@ -8,9 +8,6 @@
           </q-item>
         </transition>
       </q-list>
-      <q-btn
-       @click="loadData"
-       color="primary" label="Primary" />
     </div>
   </q-page>
 </template>
